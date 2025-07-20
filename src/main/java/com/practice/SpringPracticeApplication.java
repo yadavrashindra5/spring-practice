@@ -1,28 +1,11 @@
 package com.practice;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class SpringPracticeApplication implements CommandLineRunner {
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private StudentRepository studentRepository;
-
-    @Autowired
-    private LaptopRepository laptopRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringPracticeApplication.class, args);
@@ -70,21 +53,6 @@ public class SpringPracticeApplication implements CommandLineRunner {
 //            user2.setRoles(List.of(role2));
 //            userRepository.save(user2);
 //        }
-
-        Laptop laptop = new Laptop();
-        laptop.setBrand("6789");
-        laptop.setLaptopId(7999);
-        laptop.setModelNumber("rashi");
-
-        Student student = new Student();
-        student.setStudentName("rashi");
-        student.setStudentId(78);
-        student.setAbout("He is student");
-        student.setLaptop(laptop);
-        laptop.setStudent(student);
-//        studentRepository.save(student);
-
-        laptopRepository.save(laptop);
 
     }
 }
