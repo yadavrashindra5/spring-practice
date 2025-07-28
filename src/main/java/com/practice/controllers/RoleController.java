@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/role")
 public class RoleController {
@@ -42,5 +44,12 @@ public class RoleController {
         RoleDto roleDto = roleService.assignPermissionToRole(roleId, permissionId);
         ApiResponse perssionIsAddedToRole = ApiResponse.builder().status(HttpStatus.OK.value()).data(roleDto).message("perssion is added to role").build();
         return new ResponseEntity<>(perssionIsAddedToRole, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<RoleDto>> getAllRole() {
+        List<RoleDto> allRoles = roleService.getAllRoles();
+        ApiResponse newRoleIsCreated = ApiResponse.builder().status(HttpStatus.OK.value()).message("Get all roles").data(allRoles).build();
+        return new ResponseEntity<ApiResponse<RoleDto>>(newRoleIsCreated, HttpStatus.OK);
     }
 }

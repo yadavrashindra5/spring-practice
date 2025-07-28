@@ -12,7 +12,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -73,5 +75,12 @@ public class RoleServiceImpl implements RoleService {
         Role savedRole = roleRepository.save(roleWithId);
 
         return modelMapper.map(savedRole, RoleDto.class);
+    }
+
+    @Override
+    public List<RoleDto> getAllRoles() {
+        List<Role> all = roleRepository.findAll();
+        List<RoleDto> collect = all.stream().map(role -> modelMapper.map(role, RoleDto.class)).collect(Collectors.toList());
+        return collect;
     }
 }
