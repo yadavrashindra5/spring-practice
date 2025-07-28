@@ -21,7 +21,7 @@ public class User implements UserDetails {
     private String userName;
     private String userEmail;
     private String password;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private List<Role> roles = new ArrayList<>();
     @OneToOne(mappedBy = "user")
