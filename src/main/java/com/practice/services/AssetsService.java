@@ -1,0 +1,12 @@
+package com.practice.services;
+
+import com.practice.dtos.AssetsDto;
+
+public interface AssetsService {
+    AssetsDto create(AssetsDto assetsDto);
+
+    AssetsDto delete(String assetsId);
+
+    AssetsDto getAsset(String assetsId);
+
+}
