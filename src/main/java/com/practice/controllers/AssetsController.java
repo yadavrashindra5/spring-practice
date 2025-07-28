@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/assets")
 public class AssetsController {
@@ -34,5 +36,12 @@ public class AssetsController {
         AssetsDto asset = assetsService.getAsset(assetsId);
         ApiResponse assetsIsGetting = ApiResponse.builder().data(asset).status(HttpStatus.OK.value()).message("Assets is getting").build();
         return new ResponseEntity<>(assetsIsGetting, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse> getAllAssets() {
+        List<AssetsDto> allAssets = assetsService.getAllAssets();
+        ApiResponse allAssetsFetched = ApiResponse.builder().message("all assets fetched").data(allAssets).status(HttpStatus.OK.value()).build();
+        return new ResponseEntity<>(allAssetsFetched, HttpStatus.OK);
     }
 }

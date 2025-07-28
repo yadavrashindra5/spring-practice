@@ -12,4 +12,6 @@ public interface UserService {
     UserDto assignRoleToUser(String userId, String roleId);
 
     List<UserDto> allUser();
+
+    UserDto assignAssetToUser(String userId, String assetId);
 }

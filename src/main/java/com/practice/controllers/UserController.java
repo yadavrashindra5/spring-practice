@@ -45,4 +45,12 @@ public class UserController {
         ApiResponse allUserData = ApiResponse.builder().status(HttpStatus.OK.value()).data(userDtoList).message("all user data").build();
         return new ResponseEntity<>(allUserData, HttpStatus.OK);
     }
+
+    @PatchMapping("/asset/{userId}/{assetId}")
+    public ResponseEntity<ApiResponse> assignAssetToUser(@PathVariable String userId, @PathVariable String assetId) {
+        UserDto userDto1 = userService.assignAssetToUser(userId, assetId);
+        ApiResponse userCreated = ApiResponse.builder().message("assign role to user").data(userDto1).status(HttpStatus.OK.value()).build();
+        return new ResponseEntity<>(userCreated, HttpStatus.OK);
+    }
+
 }

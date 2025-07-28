@@ -9,7 +9,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AssetsServiceImpl implements AssetsService {
@@ -47,5 +49,12 @@ public class AssetsServiceImpl implements AssetsService {
         Assets assets = assetsRepository.findById(assetsId).orElseThrow(() -> new ResourceNotFoundException("Given assets not found"));
 
         return modelMapper.map(assets, AssetsDto.class);
+    }
+
+    @Override
+    public List<AssetsDto> getAllAssets() {
+        List<Assets> allAssets = assetsRepository.findAll();
+        List<AssetsDto> collect = allAssets.stream().map(assets -> modelMapper.map(assets, AssetsDto.class)).collect(Collectors.toList());
+        return collect;
     }
 }

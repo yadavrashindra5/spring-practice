@@ -1,10 +1,12 @@
 package com.practice.services.impl;
 
 import com.practice.dtos.UserDto;
+import com.practice.entities.Assets;
 import com.practice.entities.Role;
 import com.practice.entities.User;
 import com.practice.exception.DuplicateDataException;
 import com.practice.exception.ResourceNotFoundException;
+import com.practice.repositories.AssetsRepository;
 import com.practice.repositories.RoleRepository;
 import com.practice.repositories.UserRepository;
 import com.practice.services.UserService;
@@ -24,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private AssetsRepository assetsRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -73,5 +78,21 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userRepository.findAll();
         List<UserDto> userDtoList = userList.stream().map(user -> modelMapper.map(user, UserDto.class)).collect(Collectors.toList());
         return userDtoList;
+    }
+
+    @Override
+    public UserDto assignAssetToUser(String userId, String assetId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        Assets assets = assetsRepository.findById(assetId).orElseThrow(() -> new ResourceNotFoundException("Given assets not found"));
+
+        assets.setUser(user);
+
+        user.setAssets(assets);
+
+        User savedUser = userRepository.save(user);
+
+        assetsRepository.save(assets);
+
+        return modelMapper.map(savedUser, UserDto.class);
     }
 }
