@@ -1,9 +1,6 @@
 package com.practice.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -19,7 +16,7 @@ public class Role {
     @Id
     private String roleId;
     private String roleName;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
     private List<Permission> permissionList = new ArrayList<>();
 }

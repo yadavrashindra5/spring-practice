@@ -14,4 +14,6 @@ public interface UserService {
     List<UserDto> allUser();
 
     UserDto assignAssetToUser(String userId, String assetId);
+    UserDto getUser(String userId);
+
 }

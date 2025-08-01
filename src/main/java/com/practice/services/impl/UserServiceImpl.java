@@ -95,4 +95,10 @@ public class UserServiceImpl implements UserService {
 
         return modelMapper.map(savedUser, UserDto.class);
     }
+
+    @Override
+    public UserDto getUser(String userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return modelMapper.map(user, UserDto.class);
+    }
 }

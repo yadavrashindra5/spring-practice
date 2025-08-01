@@ -18,7 +18,13 @@ public class SecurityConfig {
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.authorizeHttpRequests(request -> {
 //            request.requestMatchers("/user").authenticated();
-            request.anyRequest().permitAll();
+//            request.anyRequest().permitAll();
+            request.requestMatchers(HttpMethod.POST, "/user").hasAnyRole("SUPER_ADMIN", "HR").
+                    requestMatchers(HttpMethod.GET, "/user").hasAnyRole("SUPER_ADMIN", "HR")
+                    .requestMatchers("/user/*").hasAnyRole("SUPER_ADMIN", "HR", "ADMIN", "USER")
+                    .requestMatchers("/user/*/*").hasAnyRole("SUPER_ADMIN", "HR")
+                    .requestMatchers("/user/asset/*/*").hasAnyRole("SUPER_ADMIN", "HR")
+                    .requestMatchers("/role").hasRole("SUPER_ADMIN");
         });
         httpSecurity.formLogin(Customizer.withDefaults());
         httpSecurity.httpBasic(Customizer.withDefaults());

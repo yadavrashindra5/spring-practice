@@ -53,4 +53,11 @@ public class UserController {
         return new ResponseEntity<>(userCreated, HttpStatus.OK);
     }
 
+    @GetMapping("/{userId}")
+    public ResponseEntity<ApiResponse> getUser(@PathVariable String userId) {
+        UserDto user= userService.getUser(userId);
+        ApiResponse allUserData = ApiResponse.builder().status(HttpStatus.OK.value()).data(user).message(" user data").build();
+        return new ResponseEntity<>(allUserData, HttpStatus.OK);
+    }
+
 }
