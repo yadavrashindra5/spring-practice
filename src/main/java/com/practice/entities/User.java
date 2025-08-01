@@ -1,5 +1,6 @@
 package com.practice.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +28,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "user_id")
     private List<Role> roles = new ArrayList<>();
     @OneToOne(mappedBy = "user")
+    @JsonManagedReference
     private Assets assets;
 
     @Override
